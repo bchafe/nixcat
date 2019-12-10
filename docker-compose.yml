@@ -1,0 +1,60 @@
+version: '3.2'
+services: 
+
+  mariadb:
+
+    image: mariadb 
+    
+    environment: 
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+    volumes: 
+       - type: volume
+         source: wordpress_db
+         target: /var/lib/mysql
+  
+  wordpress:
+    depends_on:
+      - mariadb
+    
+    image: wordpress
+
+    ports: 
+      - 80:80
+      - 8080:80
+      - 443:443
+
+    links: 
+      - mariadb
+
+    volumes: 
+      
+      - type: volume
+        source: wordpress_site
+        target: /var/www/html
+
+      - type: volume
+        source: wordpress_etc
+        target: /etc
+      
+      - type: bind
+        source: /home/meow/nixcat/wordpress/nixcat-priv.pem
+        target: /etc/ssl/private/nixcat-priv.pem
+      
+      - type: bind
+        source: /home/meow/nixcat/wordpress/nixcat-cert.pem
+        target: /etc/ssl/certs/nixcat-cert.pem
+
+volumes: 
+
+  wordpress_db: 
+
+    external: true
+
+  wordpress_site:
+
+    external: true
+
+  wordpress_etc:
+
+    external: true

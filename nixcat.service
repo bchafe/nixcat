@@ -1,0 +1,15 @@
+[Unit]
+Description=Nixcat Stack
+Documentation=man:docker(1)
+After=network.target docker.service
+Wants=docker.service
+
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/docker-compose -f /home/meow/nixcat/docker-compose.yml up
+ExecStop=/usr/bin/docker-compose -f /home/meow/nixcat/docker-compose.yml down
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
