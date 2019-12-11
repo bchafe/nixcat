@@ -1,5 +1,5 @@
 # NixCat Stack Files
-Compose and Service files for the NixCat Stack
+Compose and Service files for the NixCat Stack.
 
 This repo contains both the Docker Compose file and Systemd service file for the stack I run on my Nixcat server. The server I run these on is a Google Cloud f1-micro instance running CentOS 7. 
 
